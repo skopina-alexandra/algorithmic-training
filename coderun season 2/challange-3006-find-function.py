@@ -29,33 +29,33 @@ def main():
 
     ans = 1
 
-    primes = generate_primes(n)
+    primes = []
 
-    if n in primes:
-        print(n-1)
-        return
-    
+    ndividers = []
+
     for i in range(2, n):
-        is_mutually_simple = True
+        is_prime = True
         for prime in primes:
-            if prime > i:
-                break
             if i % prime == 0:
-                is_mutually_simple = False
+                is_prime = False
                 break
-        ans += 1 if is_mutually_simple else 0
+        
+        if is_prime:
+            primes.append(i)
+            if n % i != 0:
+                ans += 1
+            else:
+                ndividers.append(i)
+        else:
+            has_common_divider = False
+            for x in ndividers:
+                if i % x == 0:
+                    has_common_divider = True
+                    break
+            if not has_common_divider:
+                ans += 1
     
     print(ans)
-
- 
-is_prime = lambda number: all(number % i != 0 for i in range(2, int(number ** 0.5) + 1))
-
-def generate_primes(n):
-    primes = []
-    for i in range (2, n + 1):
-        if is_prime(i) and n % i == 0:
-            primes.append(i)
-    return primes
 
 
 if __name__ == '__main__':
