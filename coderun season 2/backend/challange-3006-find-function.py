@@ -1,5 +1,5 @@
 import sys
-
+import math
 
 def main():
     """
@@ -26,37 +26,18 @@ def main():
     print(sum(map(int, input().split())))
     """
     n = int(input())
-
-    ans = 1
-
-    primes = []
-
-    ndividers = []
-
-    for i in range(2, n):
-        is_prime = True
-        for prime in primes:
-            if i % prime == 0:
-                is_prime = False
-                break
-        
-        if is_prime:
-            primes.append(i)
-            if n % i != 0:
-                ans += 1
-            else:
-                ndividers.append(i)
-        else:
-            has_common_divider = False
-            for x in ndividers:
-                if i % x == 0:
-                    has_common_divider = True
-                    break
-            if not has_common_divider:
-                ans += 1
+    result = n
+    i = 2
+    while i * i <= n: 
+        if n % i ==  0:
+            while n % i == 0:
+                n = n / i
+            result -= result / i
+        i += 1
+    if n >1:
+        result -= result / n
     
-    print(ans)
-
+    print(int(result))
 
 if __name__ == '__main__':
     main()
